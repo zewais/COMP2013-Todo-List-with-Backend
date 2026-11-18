@@ -76,3 +76,16 @@ server.delete("/data/:id", async (request, response) => {
     response.status(500).send(error);
   }
 });
+
+server.patch("/data/:id", async (request, response) => {
+  const { id } = request.params;
+  const { title, checked } = request.body;
+  console.log(request.body);
+  try {
+    await Task2.findOneAndUpdate({ id }, { title, checked });
+    response.status(201).send(`Task with id ${id} has been modified`);
+  } catch (error) {
+    console.log(error);
+    response.status(500).send(error);
+  }
+});
